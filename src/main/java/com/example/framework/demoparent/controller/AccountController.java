@@ -12,6 +12,7 @@ package com.example.framework.demoparent.controller;
 
 import com.example.framework.demoparent.entity.TAccount;
 import com.example.framework.demoparent.service.AccountService;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +38,12 @@ public class AccountController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String getAccounts(Model model) {
-        List<TAccount> result = accountService.selectAll();
+
+        Page<TAccount> page = accountService.findByPage(1,5);
+
+
+//        List<TAccount> result = accountService.selectAll();
+        List<TAccount> result = page.getResult();
         model.addAttribute("resultList", result);
         return "account/list";
     }

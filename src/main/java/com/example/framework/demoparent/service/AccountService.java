@@ -12,6 +12,8 @@ package com.example.framework.demoparent.service;
 
 import com.example.framework.demoparent.entity.TAccount;
 import com.example.framework.demoparent.mapper.TAccountMapper;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -40,4 +42,10 @@ public class AccountService {
     public List<TAccount> selectAll() {
         return accountMapper.selectAll();
     }
+
+    public Page<TAccount> findByPage(int pageNo, int pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        return accountMapper.findByPage();
+    }
+
 }

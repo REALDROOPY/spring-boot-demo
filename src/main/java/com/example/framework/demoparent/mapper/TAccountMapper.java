@@ -1,6 +1,7 @@
 package com.example.framework.demoparent.mapper;
 
 import com.example.framework.demoparent.entity.TAccount;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -46,4 +47,6 @@ public interface TAccountMapper {
      * @mbg.generated Mon Aug 13 16:26:37 CST 2018
      */
     int updateByPrimaryKey(TAccount record);
+
+    Page<TAccount> findByPage();
 }
