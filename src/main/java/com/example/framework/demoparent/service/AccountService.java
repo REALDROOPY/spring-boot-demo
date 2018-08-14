@@ -11,6 +11,8 @@
 package com.example.framework.demoparent.service;
 
 import com.example.framework.demoparent.entity.TAccount;
+import com.example.framework.demoparent.entity.TAccountExample;
+import com.example.framework.demoparent.entity.TAccountKey;
 import com.example.framework.demoparent.mapper.TAccountMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -36,11 +38,19 @@ public class AccountService {
     private TAccountMapper accountMapper;
 
     public TAccount selectByPrimaryKey(Long id) {
-        return accountMapper.selectByPrimaryKey(id);
+        TAccountKey key = new TAccountKey();
+        key.setId(id);
+
+        return accountMapper.selectByPrimaryKey(key);
     }
 
     public List<TAccount> selectAll() {
-        return accountMapper.selectAll();
+        TAccountExample example = new TAccountExample();
+        example.createCriteria().andUserNameLike("dr%");
+        example.setOrderByClause("id asc");
+        PageHelper.startPage(1, 5);
+        accountMapper.selectPageByExample(example);
+        return accountMapper.selectByExample(example);
     }
 
     public Page<TAccount> findByPage(int pageNo, int pageSize) {

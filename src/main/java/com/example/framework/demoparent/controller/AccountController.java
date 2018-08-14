@@ -13,6 +13,8 @@ package com.example.framework.demoparent.controller;
 import com.example.framework.demoparent.entity.TAccount;
 import com.example.framework.demoparent.service.AccountService;
 import com.github.pagehelper.Page;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,13 +35,19 @@ import java.util.List;
 @RequestMapping("/account")
 public class AccountController {
 
+    private static final Logger log = LoggerFactory.getLogger(AccountController.class);
+
     @Autowired
     AccountService accountService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String getAccounts(Model model) {
 
+        accountService.selectAll();
+
         Page<TAccount> page = accountService.findByPage(1,5);
+
+        log.debug("====> page: {}", page);
 
 
 //        List<TAccount> result = accountService.selectAll();

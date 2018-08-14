@@ -120,6 +120,12 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.5</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.example.framework</groupId>
+            <artifactId>base-entity</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -154,7 +160,7 @@
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.3.5</version>
+                <version>1.3.7</version>
                 <configuration>
                     <configurationFile>${basedir}/src/main/resources/mbg/generatorConfig.xml</configurationFile>
                 </configuration>
