@@ -38,4 +38,10 @@ public class IndexController {
     public String grid(Model model) {
         return "grid";
     }
+
+    @RequestMapping(value = "/adminlte", method = RequestMethod.GET)
+    public String adminlte(Model model) {
+        log.debug("====> adminlte()");
+        return "views/adminlte";
+    }
 }
