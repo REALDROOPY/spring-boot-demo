@@ -12,6 +12,7 @@ package com.example.framework.demoparent.sitemesh;
 
 import org.sitemesh.builder.SiteMeshFilterBuilder;
 import org.sitemesh.config.ConfigurableSiteMeshFilter;
+import org.sitemesh.content.tagrules.html.Sm2TagRuleBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +44,8 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter {
 //                .addExcludedPath("/main/**")
                 .addExcludedPath("/static/**")
                 .addExcludedPath("/decorators/decorator")
-                .addExcludedPath("/AdminLTE/**");
+                .addExcludedPath("/AdminLTE/**")
+                .addTagRuleBundle(new Sm2TagRuleBundle());
 //        builder.addTagRuleBundles(new DivExtractingTagRuleBundle());
     }
 }
