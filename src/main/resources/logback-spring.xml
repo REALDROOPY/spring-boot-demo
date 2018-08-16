@@ -68,6 +68,11 @@
         <appender-ref ref="file"/>
     </logger>
 
+    <logger name="org.sitemesh" level="trace" additivity="false">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </logger>
+
     <logger name="druid.sql.Statement" level="debug" additivity="false">
         <appender-ref ref="console"/>
         <appender-ref ref="sql"/>
@@ -77,5 +82,10 @@
         <appender-ref ref="console"/>
         <appender-ref ref="slow-sql"/>
     </logger>
+
+    <!--<logger name="org.springframework.web" level="debug" additivity="false">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </logger>-->
 
 </configuration>
