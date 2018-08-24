@@ -371,8 +371,12 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+
+    order by
     <if test="orderByClause != null">
-      order by ${orderByClause}
+      ${orderByClause},
     </if>
+    id asc
+
   </select>
 </mapper>

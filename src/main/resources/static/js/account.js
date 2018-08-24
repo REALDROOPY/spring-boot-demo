@@ -14,6 +14,7 @@ $(function () {
         striped: true,
         sortable: true,
         silentSort: true,
+        toolbar : "#toolbar",
         url: "/account/loadData",
         contentType: "application/x-www-form-urlencoded",
         dataField: "list",
@@ -26,7 +27,8 @@ $(function () {
         }, {
             field: 'userName',
             title: 'Item Name',
-            sortable: true
+            sortable: true,
+            sortName: "user_name"
         }, {
             field: 'money',
             title: 'Item Money',

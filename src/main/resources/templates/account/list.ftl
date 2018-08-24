@@ -27,6 +27,22 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+
+                    <div id="toolbar" class="btn-group">
+                        <button id="btn_add" type="button" class="btn btn-default" onclick="addVideoShow();">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                        </button>
+                        <button id="btn_delete" type="button" class="btn btn-default" onclick="batchUploadShow();">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>批量上传
+                        </button>
+                        <button id="btn_edit" type="button" class="btn btn-default" onclick="editMemberInfoShow();">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>选择修改
+                        </button>
+                        <button id="btn_delete" type="button" class="btn btn-default" onclick="delMemberVideo();">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>选择删除
+                        </button>
+                    </div>
+
                     <table id="table"></table>
                 </div>
                 <!-- /.box-body -->
@@ -38,6 +54,7 @@
     <!-- /.row -->
 </section>
 <!-- /.content -->
+
 
 <script src="${request.contextPath}/js/account.js"></script>
 

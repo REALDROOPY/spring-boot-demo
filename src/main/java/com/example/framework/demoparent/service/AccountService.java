@@ -16,6 +16,8 @@ import com.example.framework.demoparent.entity.TAccountKey;
 import com.example.framework.demoparent.mapper.TAccountMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -50,7 +52,21 @@ public class AccountService {
         example.setOrderByClause("id asc");
         PageHelper.startPage(1, 5);
         accountMapper.selectPageByExample(example);
-        return accountMapper.selectByExample(example);
+        return accountMapper.selectPageByExample(example);
+    }
+
+    public PageInfo<TAccount> selectPageByExample(int pageNo, int pageSize, String pageSort, String pageOrder) {
+        TAccountExample example = new TAccountExample();
+//        TAccountExample.Criteria criteria = example.createCriteria();
+
+        if (StringUtils.isNotBlank(pageSort) && StringUtils.isNotBlank(pageOrder)) {
+            example.setOrderByClause(String.format("%s %s", pageSort, pageOrder));
+        }
+
+        PageHelper.startPage(pageNo, pageSize);
+        Page<TAccount> page = accountMapper.selectPageByExample(example);
+        PageInfo<TAccount> pageInfo = page.toPageInfo();
+        return pageInfo;
     }
 
     public Page<TAccount> findByPage(int pageNo, int pageSize) {

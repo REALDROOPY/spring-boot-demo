@@ -12,7 +12,6 @@ package com.example.framework.demoparent.controller;
 
 import com.example.framework.demoparent.entity.TAccount;
 import com.example.framework.demoparent.service.AccountService;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,14 +52,17 @@ public class AccountController {
     @ResponseBody
     public PageInfo<TAccount> loadData(@RequestParam("pageNum") int pageNum,
                                        @RequestParam("pageSize") int pageSize,
-                                       @RequestParam(name="pageSort" ,required = false) String pageSort,
-                                       @RequestParam(name="pageOrder",required = false) String pageOrder) {
+                                       @RequestParam(name = "pageSort", required = false) String pageSort,
+                                       @RequestParam(name = "pageOrder", required = false) String pageOrder) {
         log.debug("====> pageNum: {}, pageSize: {}, pageSort: {}, pageOrder: {}.", pageNum, pageSize, pageSort, pageOrder);
-        Page<TAccount> page = accountService.findByPage(pageNum, pageSize);
+//        Page<TAccount> page = accountService.findByPage(pageNum, pageSize);
 //        log.debug("====> page: {}", page);
 //        log.debug("====> page json: {}", com.alibaba.fastjson.JSONObject.toJSON(page));
 //        log.debug("====> page info: {}", page.toPageInfo());
-        return page.toPageInfo();
+
+        PageInfo<TAccount> pageInfo = accountService.selectPageByExample(pageNum, pageSize, pageSort, pageOrder);
+
+        return pageInfo;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
