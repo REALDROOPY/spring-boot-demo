@@ -255,6 +255,8 @@ desired effect
         <!-- /.sidebar -->
     </aside>
 
+    <#include "/common/inc/foot.ftl">
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -356,7 +358,7 @@ desired effect
 </div>
 <!-- ./wrapper -->
 
-<#include "/common/inc/foot.ftl">
+
 
 </body>
 </html>

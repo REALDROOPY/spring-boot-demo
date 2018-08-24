@@ -353,6 +353,11 @@
     select
     <include refid="Base_Column_List" />
     from t_account
+    order by
+    <if test="orderByClause != null">
+      ${orderByClause},
+    </if>
+    id asc
   </select>
 
   <select id="selectPageByExample" parameterType="com.example.framework.demoparent.entity.TAccountExample" resultMap="BaseResultMap">

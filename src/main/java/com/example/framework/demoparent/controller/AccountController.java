@@ -13,16 +13,13 @@ package com.example.framework.demoparent.controller;
 import com.example.framework.demoparent.entity.TAccount;
 import com.example.framework.demoparent.service.AccountService;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -43,17 +40,27 @@ public class AccountController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String getAccounts(Model model) {
 
-        accountService.selectAll();
+//        accountService.selectAll();
 
-        Page<TAccount> page = accountService.findByPage(1,5);
-
-        log.debug("====> page: {}", page);
-
-
-//        List<TAccount> result = accountService.selectAll();
-        List<TAccount> result = page.getResult();
-        model.addAttribute("resultList", result);
+//        Page<TAccount> page = accountService.findByPage(1, 5);
+//        log.debug("====> page: {}", page);
+//        List<TAccount> result = page.getResult();
+//        model.addAttribute("resultList", result);
         return "account/list";
+    }
+
+    @RequestMapping(value = "/loadData", method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfo<TAccount> loadData(@RequestParam("pageNum") int pageNum,
+                                       @RequestParam("pageSize") int pageSize,
+                                       @RequestParam(name="pageSort" ,required = false) String pageSort,
+                                       @RequestParam(name="pageOrder",required = false) String pageOrder) {
+        log.debug("====> pageNum: {}, pageSize: {}, pageSort: {}, pageOrder: {}.", pageNum, pageSize, pageSort, pageOrder);
+        Page<TAccount> page = accountService.findByPage(pageNum, pageSize);
+//        log.debug("====> page: {}", page);
+//        log.debug("====> page json: {}", com.alibaba.fastjson.JSONObject.toJSON(page));
+//        log.debug("====> page info: {}", page.toPageInfo());
+        return page.toPageInfo();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
