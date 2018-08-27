@@ -44,6 +44,10 @@ public class AccountService {
     @Autowired
     private TAccountMapper accountMapper;
 
+    public TAccount findById(Long id) {
+        return accountMapper.selectByPrimaryKey(new TAccountKey(id));
+    }
+
     public int insert(TAccount user) {
         user.setCreateBy(1L);
         user.setUpdateBy(1L);
