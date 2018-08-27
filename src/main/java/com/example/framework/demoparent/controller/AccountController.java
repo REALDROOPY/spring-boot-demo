@@ -16,8 +16,10 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -34,7 +36,25 @@ public class AccountController {
     private static final Logger log = LoggerFactory.getLogger(AccountController.class);
 
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
+
+    @InitBinder
+    public void intDate(WebDataBinder dataBinder){
+        dataBinder.addCustomFormatter(new DateFormatter("yyyy-MM-dd HH:mm"), "createTime");
+    }
+
+    @RequestMapping(value = "/insert", method = RequestMethod.GET)
+    public String insert(Model model) {
+        return "account/edit";
+    }
+
+    @RequestMapping(value = "/insertSubmit", method = RequestMethod.POST)
+    public String insertSubmit(@ModelAttribute("user") TAccount user) {
+        log.debug("====> user: {}" + user);
+        accountService.insert(user);
+        log.debug("====> saved user: {}" + user);
+        return "account/list";
+    }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String getAccounts(Model model) {

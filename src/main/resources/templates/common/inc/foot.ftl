@@ -4,6 +4,14 @@
 <script src="${request.contextPath}/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="${request.contextPath}/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+<script src="${request.contextPath}/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="${request.contextPath}/AdminLTE/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+
+<script src="${request.contextPath}/AdminLTE/bower_components/moment/min/moment.min.js"></script>
+<script src="${request.contextPath}/AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
 <!-- AdminLTE App -->
 <script src="${request.contextPath}/AdminLTE/dist/js/adminlte.min.js"></script>
 

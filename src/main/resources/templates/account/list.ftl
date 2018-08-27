@@ -93,17 +93,17 @@
 <!-- /.content -->
 
 <div id="toolbar" class="btn-group">
-    <button id="btn_add" type="button" class="btn btn-default" onclick="addVideoShow();">
+    <button id="btn_add" type="button" class="btn btn-default">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
     </button>
-    <button id="btn_delete" type="button" class="btn btn-default" onclick="batchUploadShow();">
+    <#--<button id="btn_delete" type="button" class="btn btn-default" onclick="batchUploadShow();">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>批量上传
     </button>
     <button id="btn_edit" type="button" class="btn btn-default" onclick="editMemberInfoShow();">
         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>选择修改
-    </button>
-    <button id="btn_delete" type="button" class="btn btn-default" onclick="delMemberVideo();">
-        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>选择删除
+    </button>-->
+    <button id="btn_delete" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
     </button>
 </div>
 

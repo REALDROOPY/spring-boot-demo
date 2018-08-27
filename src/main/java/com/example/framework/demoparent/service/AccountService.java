@@ -18,11 +18,14 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,8 +39,21 @@ import java.util.List;
 @Transactional(propagation = Propagation.REQUIRED)
 public class AccountService {
 
+    private static final Logger log = LoggerFactory.getLogger(AccountService.class);
+
     @Autowired
     private TAccountMapper accountMapper;
+
+    public int insert(TAccount user) {
+        user.setCreateBy(1L);
+        user.setUpdateBy(1L);
+        user.setUpdateTime(new Date());
+        int result = accountMapper.insert(user);
+
+        log.debug("====> id: {}", user.getId());
+
+        return result;
+    }
 
     public TAccount selectByPrimaryKey(Long id) {
         TAccountKey key = new TAccountKey();

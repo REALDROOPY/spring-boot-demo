@@ -22,6 +22,9 @@ $(function () {
         idField: "id",
         queryParams: queryParams,
         columns: [{
+            checkbox: true,
+            align: 'center'
+        }, {
             field: 'id',
             title: 'User ID',
             sortable: true
@@ -34,7 +37,29 @@ $(function () {
             field: 'money',
             title: 'Item Money',
             sortable: true
+        }, {
+            //field: 'id',
+            title: '操作',
+            align: 'center',
+            valign: 'middle',
+            formatter: actionFormatter,
+            events: actionEvents
         }]
+    });
+
+    $("#btn_add").click(function () {
+        $("#searchForm").attr('action', '/account/insert');
+        $("#searchForm").submit();
+    });
+
+    $("#btn_delete").click(function () {
+        var a = $("#table").bootstrapTable('getSelections');
+        if (a.length <= 0) {
+            alert("请选中一行")
+        } else {
+            var b = JSON.stringify(a);
+            alert(b);
+        }
     });
 
     $("#searchBtn").click(function () {
@@ -46,12 +71,13 @@ $(function () {
         return false;
     });
 
+
     $("#searchForm").validate({
         rules: {
             inputUserId: {
                 required: false,
                 maxlength: 5,
-                number: true
+                digits: true
             },
             inputUserName: {
                 required: false,
@@ -88,6 +114,11 @@ $(function () {
         }
     });
 
+
+    // $('.update').on("click",function(){
+    //     alert("row:"+row)
+    // })
+
 });
 
 //请求服务数据时所传参数
@@ -104,3 +135,21 @@ function queryParams(params) {
         param: "Your Param" //这里是其他的参数，根据自己的需求定义，可以是多个
     }
 }
+
+function actionFormatter(value) {
+    return [
+        '<a class="myupdate" title="Update Item"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;',
+        '<a class="myremove" title="Delete Item"><i class="glyphicon glyphicon-remove-circle"></i></a>',
+    ].join('');
+}
+
+
+window.actionEvents = {
+    'click .myupdate': function (e, value, row, index) {
+        alert(JSON.stringify(row));
+    },
+    'click .myremove': function (e, value, row, index) {
+        alert(JSON.stringify(row));
+    }
+};
+
