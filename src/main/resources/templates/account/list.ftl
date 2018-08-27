@@ -27,20 +27,20 @@
                     <h3 class="box-title">Hover Data Table</h3>
                 </div>
 
-                <form id="searchform" class="form-horizontal">
+                <form id="searchForm" class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group col-md-6">
                             <label for="inputUserId" class="col-xs-2 control-label">ID</label>
 
                             <div class="col-xs-10">
-                                <input type="text" class="form-control" id="inputUserId" placeholder="ID">
+                                <input type="text" class="form-control" id="inputUserId" name="inputUserId" placeholder="ID">
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputUserName" class="col-xs-2 control-label">用户名</label>
 
                             <div class="col-xs-10">
-                                <input type="text" class="form-control" id="inputUserName" placeholder="用户名">
+                                <input type="text" class="form-control" id="inputUserName" name="inputUserName" placeholder="用户名">
                             </div>
                         </div>
 
@@ -60,17 +60,17 @@
                             </div>
                         </div>
 
-                        <#--<div class="form-group col-md-12">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-default">查询</button>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-6 col-md-offset-2">
+                                <button id="searchBtn" type="submit" class="btn btn-default">查询</button>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                     <!-- /.box-body -->
-                    <div class="box-footer">
+                    <#--<div class="box-footer">
                         <button id="searchBtn" type="button" class="btn btn-default offset-1">查询</button>
                         <button type="button" class="btn btn-info pull-right">查询</button>
-                    </div>
+                    </div>-->
                     <!-- /.box-footer -->
                 </form>
 
@@ -107,7 +107,6 @@
     </button>
 </div>
 
-<#--<#assign _timestamp = .now?long>-->
 <script src="${request.contextPath}/js/account.js?_t=${lib._timestamp}"></script>
 
 </body>

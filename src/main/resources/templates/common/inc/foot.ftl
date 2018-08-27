@@ -9,6 +9,8 @@
 
 <script src="${request.contextPath}/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="${request.contextPath}/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="${request.contextPath}/jquery-validation/dist/jquery.validate.js"></script>
+<script src="${request.contextPath}/jquery-validation/dist/localization/messages_zh.js"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

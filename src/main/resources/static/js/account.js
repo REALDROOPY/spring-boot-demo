@@ -28,6 +28,7 @@ $(function () {
         }, {
             field: 'userName',
             title: '用户名',
+            sortable: true,
             sortName: "user_name"
         }, {
             field: 'money',
@@ -38,7 +39,53 @@ $(function () {
 
     $("#searchBtn").click(function () {
         console.log("11111");
-        $('#table').bootstrapTable('refresh');
+        var result = $("#searchForm").valid();
+        if (result) {
+            $('#table').bootstrapTable('refresh');
+        }
+        return false;
+    });
+
+    $("#searchForm").validate({
+        rules: {
+            inputUserId: {
+                required: false,
+                maxlength: 5,
+                number: true
+            },
+            inputUserName: {
+                required: false,
+                maxlength: 5
+            }
+        },
+        // messages: {
+        //
+        //     inputUserId: {
+        //         required: "Please enter a username",
+        //         minlength: "Your username must consist of at least 2 characters"
+        //     },
+        //     inputUserName: {
+        //         required: "Please provide a password",
+        //         minlength: "Your password must be at least 5 characters long"
+        //     }
+        // },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+            // Add the `help-block` class to the error element
+            error.addClass("help-block");
+
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.parent("label"));
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).parents(".col-xs-10").addClass("has-error").removeClass("has-success");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).parents(".col-xs-10").addClass("has-success").removeClass("has-error");
+        }
     });
 
 });
