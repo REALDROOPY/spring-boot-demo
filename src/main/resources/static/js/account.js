@@ -1,4 +1,5 @@
 $(function () {
+
     $('#table').bootstrapTable({
         search: false,
         pagination: true,
@@ -14,7 +15,7 @@ $(function () {
         striped: true,
         sortable: true,
         silentSort: true,
-        toolbar : "#toolbar",
+        toolbar: "#toolbar",
         url: "/account/loadData",
         contentType: "application/x-www-form-urlencoded",
         dataField: "list",
@@ -22,12 +23,11 @@ $(function () {
         queryParams: queryParams,
         columns: [{
             field: 'id',
-            title: 'Item ID',
+            title: 'User ID',
             sortable: true
         }, {
             field: 'userName',
-            title: 'Item Name',
-            sortable: true,
+            title: '用户名',
             sortName: "user_name"
         }, {
             field: 'money',
@@ -35,6 +35,12 @@ $(function () {
             sortable: true
         }]
     });
+
+    $("#searchBtn").click(function () {
+        console.log("11111");
+        $('#table').bootstrapTable('refresh');
+    });
+
 });
 
 //请求服务数据时所传参数
@@ -44,6 +50,8 @@ function queryParams(params) {
         pageNum: params.offset / params.limit + 1, //当前页面,默认是上面设置的1(pageNumber)
         pageSort: params.sort,
         pageOrder: params.order,
+        id: $("#inputUserId").val(),
+        userName: $("#inputUserName").val(),
         // pageSort: params.sortName,
         // pageOrder: params.sortOrder,
         param: "Your Param" //这里是其他的参数，根据自己的需求定义，可以是多个

@@ -50,17 +50,20 @@ public class AccountController {
 
     @RequestMapping(value = "/loadData", method = RequestMethod.GET)
     @ResponseBody
-    public PageInfo<TAccount> loadData(@RequestParam("pageNum") int pageNum,
-                                       @RequestParam("pageSize") int pageSize,
+    public PageInfo<TAccount> loadData(@RequestParam("pageNum") Integer pageNum,
+                                       @RequestParam("pageSize") Integer pageSize,
                                        @RequestParam(name = "pageSort", required = false) String pageSort,
-                                       @RequestParam(name = "pageOrder", required = false) String pageOrder) {
-        log.debug("====> pageNum: {}, pageSize: {}, pageSort: {}, pageOrder: {}.", pageNum, pageSize, pageSort, pageOrder);
+                                       @RequestParam(name = "pageOrder", required = false) String pageOrder,
+                                       @RequestParam(name = "id", required = false) Long id,
+                                       @RequestParam(name = "userName", required = false) String userName) {
+        log.debug("====> pageNum: {}, pageSize: {}, pageSort: {}, pageOrder: {}, id: {}, userName: {}.",
+                pageNum, pageSize, pageSort, pageOrder, id, userName);
 //        Page<TAccount> page = accountService.findByPage(pageNum, pageSize);
 //        log.debug("====> page: {}", page);
 //        log.debug("====> page json: {}", com.alibaba.fastjson.JSONObject.toJSON(page));
 //        log.debug("====> page info: {}", page.toPageInfo());
 
-        PageInfo<TAccount> pageInfo = accountService.selectPageByExample(pageNum, pageSize, pageSort, pageOrder);
+        PageInfo<TAccount> pageInfo = accountService.selectPageByExample(pageNum, pageSize, pageSort, pageOrder, id, userName);
 
         return pageInfo;
     }

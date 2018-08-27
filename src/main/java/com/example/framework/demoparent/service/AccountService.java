@@ -55,9 +55,21 @@ public class AccountService {
         return accountMapper.selectPageByExample(example);
     }
 
-    public PageInfo<TAccount> selectPageByExample(int pageNo, int pageSize, String pageSort, String pageOrder) {
+    public PageInfo<TAccount> selectPageByExample(int pageNo,
+                                                  int pageSize,
+                                                  String pageSort,
+                                                  String pageOrder,
+                                                  Long id,
+                                                  String userName) {
         TAccountExample example = new TAccountExample();
-//        TAccountExample.Criteria criteria = example.createCriteria();
+        TAccountExample.Criteria criteria = example.createCriteria();
+        if (id != null) {
+            criteria.andIdEqualTo(id);
+        }
+
+        if (StringUtils.isNotBlank(userName)) {
+            criteria.andUserNameLike("%" + userName + "%");
+        }
 
         if (StringUtils.isNotBlank(pageSort) && StringUtils.isNotBlank(pageOrder)) {
             example.setOrderByClause(String.format("%s %s", pageSort, pageOrder));
