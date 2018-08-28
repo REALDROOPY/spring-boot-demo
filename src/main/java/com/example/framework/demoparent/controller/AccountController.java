@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -56,7 +57,16 @@ public class AccountController {
         return "account/list";
     }
 
+    @RequestMapping(value = "/updateSubmit", method = RequestMethod.POST)
+    public String updateSubmit(@ModelAttribute("user") TAccount user) {
+        log.debug("====> user: {}" + user);
+        accountService.update(user);
+        log.debug("====> saved user: {}" + user);
+        return "account/list";
+    }
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
+    //@PreAuthorize("hasAnyAuthority('ROLE_USER2','ROLE_ADMIN2','admin')")
     public String getAccounts(Model model) {
 
 //        accountService.selectAll();

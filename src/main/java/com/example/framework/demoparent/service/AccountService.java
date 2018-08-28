@@ -48,6 +48,13 @@ public class AccountService {
         return accountMapper.selectByPrimaryKey(new TAccountKey(id));
     }
 
+    public int update(TAccount user) {
+        user.setUpdateBy(1L);
+        user.setUpdateTime(new Date());
+        int result = accountMapper.updateByPrimaryKeySelective(user);
+        return result;
+    }
+
     public int insert(TAccount user) {
         user.setCreateBy(1L);
         user.setUpdateBy(1L);

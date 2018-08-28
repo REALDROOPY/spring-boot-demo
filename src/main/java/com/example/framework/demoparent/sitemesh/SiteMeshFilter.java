@@ -16,12 +16,6 @@ import org.sitemesh.content.tagrules.html.Sm2TagRuleBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import java.io.IOException;
-
 /**
  * 〈一句话功能简述〉<br>
  *
@@ -38,13 +32,15 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter {
 
         log.debug("========> applyCustomConfiguration()");
 
-        builder.addDecoratorPath("/**", "/decorators/decorator")
-//                .addDecoratorPath("/strategy/**", "/WEB-INF/views/decorators/decorator.jsp")
-//                .addExcludedPath("/login/**")
-//                .addExcludedPath("/main/**")
+        builder.addDecoratorPath("/login", "/decorators/decorator-login")
+                .addDecoratorPath("/**", "/decorators/decorator")
+                .addExcludedPath("/loginSubmit")
                 .addExcludedPath("/static/**")
                 .addExcludedPath("/decorators/decorator")
                 .addExcludedPath("/AdminLTE/**")
+                .addExcludedPath("/bootstrap-table/**")
+                .addExcludedPath("/jquery-validation/**")
+                .addExcludedPath("/js/**")
                 .addTagRuleBundle(new Sm2TagRuleBundle());
 //        builder.addTagRuleBundles(new DivExtractingTagRuleBundle());
     }

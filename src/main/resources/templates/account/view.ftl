@@ -36,10 +36,10 @@
                     <form id="signupForm" method="post" class="form-horizontal">
 
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="userName">ID</label>
+                            <label class="col-sm-4 control-label" for="id">ID</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" id="userName" name="userName"
-                                       placeholder="user name" value="${(vo.id)!}" readonly="readonly"/>
+                                <input type="text" class="form-control" id="id" name="id"
+                                       placeholder="id" value="${(vo.id)!}" readonly="readonly"/>
                             </div>
                         </div>
 
@@ -80,7 +80,7 @@
                             <label class="col-sm-4 control-label" for="remark">remark</label>
                             <div class="col-sm-5">
                                 <textarea class="form-control" rows="3" id="remark" name="remark"
-                                          placeholder="remark">${(vo.remarkree)!}</textarea>
+                                          placeholder="remark">${(vo.remark)!}</textarea>
                             </div>
                         </div>
 
@@ -103,7 +103,7 @@
 <!-- /.content -->
 
 
-<script src="${request.contextPath}/js/account_edit.js?_t=${lib._timestamp}"></script>
+<script src="${request.contextPath}/js/account_update.js?_t=${lib._timestamp}"></script>
 
 </body>
 </html>

@@ -105,7 +105,112 @@
     <button id="btn_delete" type="button" class="btn btn-default">
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
     </button>
+
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+        Launch Default Modal
+    </button>
 </div>
+
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Default Modal</h4>
+            </div>
+            <div class="modal-body">
+                <section class="content">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Simple Form</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <form id="signupForm" method="post" class="form-horizontal">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="id">ID</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="id" name="id"
+                                                       placeholder="id" value="${(vo.id)!}" readonly="readonly"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="userName">User Name</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="userName" name="userName"
+                                                       placeholder="user name" value="${(vo.userName)!}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="money">money</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="money" name="money" placeholder="money"
+                                                       value="${(vo.money)!}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="age">age</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="age" name="age" placeholder="age"
+                                                       value="${(vo.age)!}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="createTime">create_time</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="createTime" name="createTime"
+                                                       placeholder="createTime"
+                                                       value="${(vo.createTime?string("yyyy-MM-dd hh:mm:ss"))!}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="remark">remark</label>
+                                            <div class="col-sm-5">
+                                <textarea class="form-control" rows="3" id="remark" name="remark"
+                                          placeholder="remark">${(vo.remark)!}</textarea>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="col-sm-9 col-sm-offset-4">
+                                                <button type="submit" class="btn btn-primary" name="submitBtn" id="submitBtn"
+                                                        value="Submit">Submit
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <script src="${request.contextPath}/js/account.js?_t=${lib._timestamp}"></script>
 
