@@ -247,6 +247,19 @@ desired effect
                     <ul class="treeview-menu">
                         <li><a href="#">Link in level 2</a></li>
                         <li><a href="#">Link in level 2</a></li>
+
+
+
+                        <li><a href="#">${(Session.SPRING_SECURITY_CONTEXT.authentication.principal.username)!"default value"}</a></li>
+
+
+
+
+                         <#if (Session.SPRING_SECURITY_CONTEXT.authentication.authorities)?exists>
+                             <#list Session.SPRING_SECURITY_CONTEXT.authentication.authorities as authority>
+                                 <li><a href="#">${authority.authority}</a></li>
+                             </#list>
+                         </#if>
                     </ul>
                 </li>
             </ul>

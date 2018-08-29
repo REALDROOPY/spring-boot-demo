@@ -17,11 +17,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -40,7 +45,7 @@ public class AccountController {
     private AccountService accountService;
 
     @InitBinder
-    public void intDate(WebDataBinder dataBinder){
+    public void intDate(WebDataBinder dataBinder) {
         dataBinder.addCustomFormatter(new DateFormatter("yyyy-MM-dd HH:mm"), "createTime");
     }
 
@@ -68,6 +73,17 @@ public class AccountController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     //@PreAuthorize("hasAnyAuthority('ROLE_USER2','ROLE_ADMIN2','admin')")
     public String getAccounts(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        log.debug("====> username: {}", userDetails.getUsername());
+
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        for (GrantedAuthority grantedAuthority : authorities) {
+            log.debug("====> authority: {}", grantedAuthority.getAuthority());
+        }
+
 
 //        accountService.selectAll();
 

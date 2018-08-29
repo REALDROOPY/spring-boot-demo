@@ -1,3 +1,4 @@
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <html>
 <head>
     <title>freemarker Test</title>
@@ -24,7 +25,21 @@
 
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Hover Data Table</h3>
+                    <h3 class="box-title">Hover Data Table<@security.authorize access="hasAnyAuthority('admin')">
+权限测试
+                    </@security.authorize>
+                    <@security.authentication property="name" />
+                        <@security.authentication property="principal.username" />
+
+
+                    ${(Session.SPRING_SECURITY_CONTEXT.authentication.principal.username)!"default value"}
+
+                         <#if (Session.SPRING_SECURITY_CONTEXT.authentication.authorities)?exists>
+                             <#list Session.SPRING_SECURITY_CONTEXT.authentication.authorities as authority>
+                             ${authority.authority}
+                             </#list>
+                         </#if>
+                    </h3>
                 </div>
 
                 <form id="searchForm" class="form-horizontal">
@@ -33,14 +48,16 @@
                             <label for="inputUserId" class="col-xs-2 control-label">ID</label>
 
                             <div class="col-xs-10">
-                                <input type="text" class="form-control" id="inputUserId" name="inputUserId" placeholder="ID">
+                                <input type="text" class="form-control" id="inputUserId" name="inputUserId"
+                                       placeholder="ID">
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputUserName" class="col-xs-2 control-label">用户名</label>
 
                             <div class="col-xs-10">
-                                <input type="text" class="form-control" id="inputUserName" name="inputUserName" placeholder="用户名">
+                                <input type="text" class="form-control" id="inputUserName" name="inputUserName"
+                                       placeholder="用户名">
                             </div>
                         </div>
 
@@ -67,10 +84,10 @@
                         </div>
                     </div>
                     <!-- /.box-body -->
-                    <#--<div class="box-footer">
-                        <button id="searchBtn" type="button" class="btn btn-default offset-1">查询</button>
-                        <button type="button" class="btn btn-info pull-right">查询</button>
-                    </div>-->
+                <#--<div class="box-footer">
+                    <button id="searchBtn" type="button" class="btn btn-default offset-1">查询</button>
+                    <button type="button" class="btn btn-info pull-right">查询</button>
+                </div>-->
                     <!-- /.box-footer -->
                 </form>
 
@@ -96,12 +113,12 @@
     <button id="btn_add" type="button" class="btn btn-default">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
     </button>
-    <#--<button id="btn_delete" type="button" class="btn btn-default" onclick="batchUploadShow();">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>批量上传
-    </button>
-    <button id="btn_edit" type="button" class="btn btn-default" onclick="editMemberInfoShow();">
-        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>选择修改
-    </button>-->
+<#--<button id="btn_delete" type="button" class="btn btn-default" onclick="batchUploadShow();">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>批量上传
+</button>
+<button id="btn_edit" type="button" class="btn btn-default" onclick="editMemberInfoShow();">
+    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>选择修改
+</button>-->
     <button id="btn_delete" type="button" class="btn btn-default">
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
     </button>
@@ -153,7 +170,8 @@
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label" for="money">money</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="money" name="money" placeholder="money"
+                                                <input type="text" class="form-control" id="money" name="money"
+                                                       placeholder="money"
                                                        value="${(vo.money)!}"/>
                                             </div>
                                         </div>
@@ -161,7 +179,8 @@
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label" for="age">age</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="age" name="age" placeholder="age"
+                                                <input type="text" class="form-control" id="age" name="age"
+                                                       placeholder="age"
                                                        value="${(vo.age)!}"/>
                                             </div>
                                         </div>
@@ -169,7 +188,8 @@
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label" for="createTime">create_time</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="createTime" name="createTime"
+                                                <input type="text" class="form-control" id="createTime"
+                                                       name="createTime"
                                                        placeholder="createTime"
                                                        value="${(vo.createTime?string("yyyy-MM-dd hh:mm:ss"))!}"/>
                                             </div>
@@ -186,7 +206,8 @@
 
                                         <div class="form-group">
                                             <div class="col-sm-9 col-sm-offset-4">
-                                                <button type="submit" class="btn btn-primary" name="submitBtn" id="submitBtn"
+                                                <button type="submit" class="btn btn-primary" name="submitBtn"
+                                                        id="submitBtn"
                                                         value="Submit">Submit
                                                 </button>
                                             </div>
