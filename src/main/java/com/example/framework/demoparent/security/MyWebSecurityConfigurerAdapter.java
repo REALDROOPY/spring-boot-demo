@@ -11,6 +11,8 @@
 package com.example.framework.demoparent.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.SecurityExpressionOperations;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -41,9 +43,19 @@ public class MyWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
+    @Autowired
+    private MyAuthenticationProvider myAuthenticationProvider;
+
+    @Bean(name = "myAuthenticationProvider")
+    public MyAuthenticationProvider myAuthenticationProvider() {
+        MyAuthenticationProvider myAuthenticationProvider = new MyAuthenticationProvider();
+        myAuthenticationProvider.setUserDetailsService(myUserDetailsService);
+        return myAuthenticationProvider;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.userDetailsService(myUserDetailsService)
+        http.authenticationProvider(myAuthenticationProvider).userDetailsService(myUserDetailsService)
 
                 .formLogin()
                 .loginPage("/login")

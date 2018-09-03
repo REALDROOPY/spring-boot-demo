@@ -1,4 +1,4 @@
-<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
+<#--<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />-->
 <html>
 <head>
     <title>freemarker Test</title>
@@ -25,11 +25,11 @@
 
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Hover Data Table<@security.authorize access="hasAnyAuthority('admin')">
+                    <h3 class="box-title">Hover Data Table<@jspTag.security.authorize access="hasAnyAuthority('admin')">
 权限测试
-                    </@security.authorize>
-                    <@security.authentication property="name" />
-                        <@security.authentication property="principal.username" />
+                    </@jspTag.security.authorize>
+                    <@jspTag.security.authentication property="name" />
+                        <@jspTag.security.authentication property="principal.username" />
 
 
                     ${(Session.SPRING_SECURITY_CONTEXT.authentication.principal.username)!"default value"}

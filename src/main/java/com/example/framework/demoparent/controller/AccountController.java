@@ -16,7 +16,9 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.datetime.DateFormatter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +27,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.RequestContext;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 /**
@@ -40,6 +44,8 @@ import java.util.Collection;
 public class AccountController {
 
     private static final Logger log = LoggerFactory.getLogger(AccountController.class);
+
+
 
     @Autowired
     private AccountService accountService;
@@ -71,8 +77,11 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    //@PreAuthorize("hasAnyAuthority('ROLE_USER2','ROLE_ADMIN2','admin')")
-    public String getAccounts(Model model) {
+//    @PreAuthorize("hasAnyAuthority('ROLE_USER2','ROLE_ADMIN2','admin2')")
+    public String getAccounts(HttpServletRequest request, Model model) {
+        RequestContext requestContext = new RequestContext(request);
+        String msg = requestContext.getMessage("test.str");
+        log.debug("====> msg: {}", msg);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

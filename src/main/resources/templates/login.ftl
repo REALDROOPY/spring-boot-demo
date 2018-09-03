@@ -32,6 +32,13 @@
                 <input type="password" class="form-control" placeholder="Password" name="password">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
+
+                <#if (Session.SPRING_SECURITY_LAST_EXCEPTION.message)?? && (Session.SPRING_SECURITY_LAST_EXCEPTION.message) != "">
+                <div class="form-group has-feedback">
+                    <p class="text-red">${(Session.SPRING_SECURITY_LAST_EXCEPTION.message)!}</p>
+                </div>
+                </#if>
+
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
@@ -43,8 +50,11 @@
                 <!-- /.col -->
                 <div class="col-xs-4">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+
                 </div>
                 <!-- /.col -->
+
+
             </div>
         </form>
 

@@ -1,0 +1,65 @@
+---
+spring:
+  freemarker:
+    settings:
+      auto_import: common/lib/lib.ftl as lib,common/lib/tld.ftl as jspTag
+    charset: utf-8
+    cache: false
+    allow-request-override: true
+    expose-request-attributes: true
+    request-context-attribute: request
+    allow-session-override: true
+    content-type: text/html
+    expose-session-attributes: true
+    template-loader-path: classpath:/templates/
+    suffix: .ftl
+    expose-spring-macro-helpers: false
+  datasource:
+    password: demo
+    druid:
+      min-idle: 1
+      web-stat-filter:
+        enabled: true
+      max-active: 60
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      validation-query: select 1
+      filters: stat,slf4j
+      max-wait: 60000
+      filter:
+        stat:
+          slow-sql-millis: 1
+          enabled: true
+          log-slow-sql: true
+        slf4j:
+          connection-log-enabled: true
+          statement-executable-sql-log-enable: true
+          enabled: true
+      test-on-borrow: false
+      stat-view-servlet:
+        url-pattern: /druid/*
+        reset-enable: true
+        enabled: true
+      initial-size: 1
+      min-evictable-idle-time-millis: 300000
+      test-on-return: false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: demo
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+security:
+  basic:
+    enabled: false
+  user:
+    password: 123456
+    role: SUPERUSER
+    name: admin
+pagehelper:
+  reasonable: true
+  helper-dialect: mysql
+mybatis:
+  configuration:
+    cache-enabled: false
+  mapper-locations: classpath:mapper/*.xml

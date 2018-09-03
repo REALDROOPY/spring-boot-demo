@@ -38,7 +38,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
         // 封装用户信息，并返回。参数分别是：用户名，密码，用户权限
         User user = new User(username, "123456",
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_ADMIN,"));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_ADMIN,ACTUATOR"));
         return user;
     }
 }
