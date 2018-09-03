@@ -11,14 +11,11 @@
 package com.example.framework.demoparent.security;
 
 import org.springframework.context.support.MessageSourceAccessor;
-import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -31,4 +28,35 @@ import org.springframework.stereotype.Component;
 public class MyAuthenticationProvider extends DaoAuthenticationProvider {
 
     protected MessageSourceAccessor messages = MySpringSecurityMessageSource.getAccessor();
+
+    @Override
+    protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+
+        logger.debug("========> msg: " + messages.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials"));
+
+        Object salt = null;
+
+        if (super.getSaltSource() != null) {
+            salt = super.getSaltSource().getSalt(userDetails);
+        }
+
+        if (authentication.getCredentials() == null) {
+            logger.debug("Authentication failed: no credentials provided");
+
+            throw new BadCredentialsException(messages.getMessage(
+                    "AbstractUserDetailsAuthenticationProvider.badCredentials",
+                    "Bad credentials"));
+        }
+
+        String presentedPassword = authentication.getCredentials().toString();
+
+        if (!super.getPasswordEncoder().isPasswordValid(userDetails.getPassword(),
+                presentedPassword, salt)) {
+            logger.debug("Authentication failed: password does not match stored value");
+
+            throw new BadCredentialsException(messages.getMessage(
+                    "AbstractUserDetailsAuthenticationProvider.badCredentials",
+                    "Bad credentials"));
+        }
+    }
 }

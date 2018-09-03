@@ -49,6 +49,8 @@ spring:
   messages:
     basename: i18n/messages
     encoding: UTF-8
+  mvc:
+    locale: zh_CN
 security:
   basic:
     enabled: false

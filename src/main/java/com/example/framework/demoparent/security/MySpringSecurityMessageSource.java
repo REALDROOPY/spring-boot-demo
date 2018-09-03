@@ -12,7 +12,8 @@ package com.example.framework.demoparent.security;
 
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.security.core.SpringSecurityMessageSource;
+
+import java.util.Locale;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -33,6 +34,6 @@ public class MySpringSecurityMessageSource extends ResourceBundleMessageSource {
     // ========================================================================================================
 
     public static MessageSourceAccessor getAccessor() {
-        return new MessageSourceAccessor(new MySpringSecurityMessageSource());
+        return new MessageSourceAccessor(new MySpringSecurityMessageSource(), Locale.SIMPLIFIED_CHINESE);
     }
 }
