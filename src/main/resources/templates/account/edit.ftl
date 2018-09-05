@@ -85,8 +85,8 @@
 <!-- /.content -->
 
 
-
+<myscript>
 <script src="${request.contextPath}/js/account_edit.js?_t=${lib._timestamp}"></script>
-
+</myscript>
 </body>
 </html>

@@ -102,8 +102,8 @@
 </section>
 <!-- /.content -->
 
-
+<myscript>
 <script src="${request.contextPath}/js/account_update.js?_t=${lib._timestamp}"></script>
-
+</myscript>
 </body>
 </html>

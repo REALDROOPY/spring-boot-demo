@@ -36,7 +36,7 @@
 
                          <#if (Session.SPRING_SECURITY_CONTEXT.authentication.authorities)?exists>
                              <#list Session.SPRING_SECURITY_CONTEXT.authentication.authorities as authority>
-                             ${authority.authority}
+                                 ${authority.authority}
                              </#list>
                          </#if>
                     </h3>
@@ -125,6 +125,13 @@
 
     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
         Launch Default Modal
+    </button>
+
+    <button type="button" id="menuBtn" class="btn btn-default">
+        menu
+    </button>
+    <button type="button" id="menuBtn2" class="btn btn-default">
+        menu2
     </button>
 </div>
 
@@ -233,7 +240,9 @@
 </div>
 <!-- /.modal -->
 
-<script src="${request.contextPath}/js/account.js?_t=${lib._timestamp}"></script>
+<myscript>
+    <script src="${request.contextPath}/js/account.js?_t=${lib._timestamp}"></script>
+</myscript>
 
 </body>
 </html>

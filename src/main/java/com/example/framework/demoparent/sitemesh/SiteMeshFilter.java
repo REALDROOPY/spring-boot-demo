@@ -33,6 +33,7 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter {
         log.debug("========> applyCustomConfiguration()");
 
         builder.addDecoratorPath("/login", "/decorators/decorator-login")
+//                .addDecoratorPath("/error", "/decorators/decorator")
                 .addDecoratorPath("/**", "/decorators/decorator")
                 .addExcludedPath("/loginSubmit")
                 .addExcludedPath("/static/**")
@@ -41,7 +42,8 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter {
                 .addExcludedPath("/bootstrap-table/**")
                 .addExcludedPath("/jquery-validation/**")
                 .addExcludedPath("/js/**")
-                .addTagRuleBundle(new Sm2TagRuleBundle());
+                .addTagRuleBundle(new Sm2TagRuleBundle())
+                .addTagRuleBundle(new MyScriptTagRuleBundle());
 //        builder.addTagRuleBundles(new DivExtractingTagRuleBundle());
     }
 }

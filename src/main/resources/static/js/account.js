@@ -71,6 +71,18 @@ $(function () {
         return false;
     });
 
+    $("#menuBtn").click(function () {
+        console.log("11111");
+        $("#menu31").addClass("active");
+        $("#menu3").addClass("menu-open active");
+    });
+
+    $("#menuBtn2").click(function () {
+        console.log("11111");
+        $("#menu31").removeClass("active");
+        $("#menu3").removeClass("menu-open active");
+    });
+
 
     $("#searchForm").validate({
         rules: {

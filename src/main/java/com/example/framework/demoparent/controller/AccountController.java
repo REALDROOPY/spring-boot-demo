@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.web.BasicErrorController;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -44,8 +45,6 @@ import java.util.Collection;
 public class AccountController {
 
     private static final Logger log = LoggerFactory.getLogger(AccountController.class);
-
-
 
     @Autowired
     private AccountService accountService;
@@ -77,11 +76,14 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-//    @PreAuthorize("hasAnyAuthority('ROLE_USER2','ROLE_ADMIN2','admin2')")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER','ROLE_ADMIN','admin')")
     public String getAccounts(HttpServletRequest request, Model model) {
         RequestContext requestContext = new RequestContext(request);
         String msg = requestContext.getMessage("test.str");
         log.debug("====> msg: {}", msg);
+
+        String aaa = null;
+        boolean error = aaa.equals("");
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

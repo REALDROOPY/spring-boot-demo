@@ -243,12 +243,14 @@ desired effect
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
+                        <li class=""><a href="#">Link in level 2</a></li>
                         <li><a href="#">Link in level 2</a></li>
-                        <li><a href="#">Link in level 2</a></li>
-
-
 
                         <li><a href="#">${(Session.SPRING_SECURITY_CONTEXT.authentication.principal.username)!"default value"}</a></li>
+
+                        <@jspTag.security.authorize access="hasAnyAuthority('admin')">
+                        <li><a href="#">权限测试</a></li>
+                        </@jspTag.security.authorize>
 
 
 
@@ -259,14 +261,32 @@ desired effect
                              </#list>
                          </#if>
                     </ul>
+
+
                 </li>
+
+
+                <li class="treeview" id="menu3">
+                    <a href="#"><i class="fa fa-link"></i> <span>menu3</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="" id="menu31"><a href="#">menu3.1</a></li>
+                        <li class="" id="menu32"><a href="#">menu3.2</a></li>
+                    </ul>
+
+
+                </li>
+
+
+
             </ul>
             <!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
     </aside>
 
-    <#include "/common/inc/foot.ftl">
+    <#--<#include "/common/inc/foot.ftl">-->
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -369,6 +389,11 @@ desired effect
 </div>
 <!-- ./wrapper -->
 
+<#include "/common/inc/foot.ftl">
+
+<!-- sitemesh myscript begin -->
+<sitemesh:write property='myscript'/>
+<!-- sitemesh myscript begin -->
 
 
 </body>

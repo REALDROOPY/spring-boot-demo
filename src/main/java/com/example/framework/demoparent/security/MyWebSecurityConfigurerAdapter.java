@@ -18,7 +18,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -42,23 +45,39 @@ public class MyWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter
     private MyUserDetailsService myUserDetailsService;
 
     @Bean
-    public AuthenticationProvider myAuthenticationProvider() {
+    AuthenticationProvider authenticationProvider() {
         MyAuthenticationProvider myAuthenticationProvider = new MyAuthenticationProvider();
         myAuthenticationProvider.setUserDetailsService(myUserDetailsService);
         return myAuthenticationProvider;
     }
 
+    @Bean
+    AccessDeniedHandler accessDeniedHandler() {
+        MyAccessDeniedHandler accessDeniedHandler = new MyAccessDeniedHandler();
+        return accessDeniedHandler;
+    }
+
+    @Bean
+    AuthenticationEntryPoint authenticationEntryPoint() {
+        MyAuthenticationEntryPoint authenticationEntryPoint = new MyAuthenticationEntryPoint();
+        return authenticationEntryPoint;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authenticationProvider(myAuthenticationProvider())
+        http.authenticationProvider(authenticationProvider())
                 .userDetailsService(myUserDetailsService)
 
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler())
+                //.authenticationEntryPoint(authenticationEntryPoint())
+
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/loginSubmit")
                 .defaultSuccessUrl("/account/list")
                 .failureUrl("/login?error=true")
-                //.failureForwardUrl("/login?error=true")
 
                 .and()
                 .logout()
@@ -71,26 +90,22 @@ public class MyWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter
                 .antMatchers("/account/**").access("hasAnyAuthority('ROLE_USER','ROLE_ADMIN')")
                 .antMatchers("/loginSubmit").permitAll()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/AdminLTE/**").permitAll()
-                .antMatchers("/bootstrap-table/**").permitAll()
-                .antMatchers("/jquery-validation/**").permitAll()
-                .antMatchers("/js/**").permitAll()
-                .antMatchers("/trace").permitAll()
-                .antMatchers("/configprops").permitAll()
-                .antMatchers("/metrics").permitAll()
-                .antMatchers("/mappings").permitAll()
-                .antMatchers("/autoconfig").permitAll()
-                .antMatchers("/env").permitAll()
-                .antMatchers("/info").permitAll()
-                .antMatchers("/dump").permitAll()
-                .antMatchers("/heapdump").permitAll()
-                .antMatchers("/loggers").permitAll()
-                .antMatchers("/beans").permitAll()
+
                 .anyRequest().authenticated();
     }
 
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/AdminLTE/**")
+                .antMatchers("/bootstrap-table/**")
+                .antMatchers("/jquery-validation/**")
+                .antMatchers("/js/**")
+                .antMatchers("//decorators/**")
+                .antMatchers("/tags/**");
+    }
 
-//    @Override
+    //    @Override
 //    protected AuthenticationManager authenticationManager() throws Exception {
 //        ProviderManager authenticationManager = new ProviderManager(Arrays.asList(myAuthenticationProvider()));
 //
