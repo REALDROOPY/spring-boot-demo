@@ -122,8 +122,8 @@
     <button id="btn_delete" type="button" class="btn btn-default">
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
     </button>
-
-    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+    <#--data-toggle="modal" data-target="#modal-default"-->
+    <button type="button" id="modalBtn" class="btn btn-default"  >
         Launch Default Modal
     </button>
 

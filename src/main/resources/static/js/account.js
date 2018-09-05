@@ -84,6 +84,42 @@ $(function () {
     });
 
 
+    $("#modalBtn").click(function () {
+        $('#modal-default').modal('toggle')
+    });
+
+    $('#modal-default').on('show.bs.modal', function (e) {
+        $.ajax({
+            type: "GET",                      //请求类型
+            url: "/rest/account/1",           //URL
+            data: {uid: 234},   //传递的参数
+            dataType: "json",                 //返回的数据类型
+            success: function (data) {          //data就是返回的json类型的数据
+                // alert("success!" + JSON.stringify(data));
+                // alert("success!" + data.success);
+                // alert("success!" + data.result);
+
+                if (data.success) {
+                    $("#id").val(data.result.id);
+                    $("#userName").val(data.result.userName);
+                    $("#money").val(data.result.money);
+                    $("#age").val(data.result.age);
+                    $("#createTime").val(data.result.createTime);
+                    $("#remark").val(data.result.remark);
+
+                } else {
+                    alert("error! code: " + data.code + ", msg: " + data.msg);
+                }
+            },
+            error: function (data) {
+                //alert("error! " + JSON.stringify(data));
+                var result = JSON.parse(data.responseText);
+                alert("error! status: " + data.status + ", statusText: " + data.statusText + ", code: " + result.code + ", msg: " + result.msg);
+            }
+        });
+    });
+
+
     $("#searchForm").validate({
         rules: {
             inputUserId: {
