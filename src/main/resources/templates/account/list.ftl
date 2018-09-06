@@ -156,7 +156,8 @@
                                     <h3 class="panel-title">Simple Form</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <form id="signupForm" method="post" class="form-horizontal">
+                                    <form id="editForm" method="post" class="form-horizontal">
+                                        <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
 
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label" for="id">ID</label>
@@ -211,14 +212,14 @@
                                         </div>
 
 
-                                        <div class="form-group">
+                                        <#--<div class="form-group">
                                             <div class="col-sm-9 col-sm-offset-4">
                                                 <button type="submit" class="btn btn-primary" name="submitBtn"
                                                         id="submitBtn"
                                                         value="Submit">Submit
                                                 </button>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </form>
                                 </div>
                             </div>
@@ -231,7 +232,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" id="saveBtn"  class="btn btn-primary">Save changes</button>
             </div>
         </div>
         <!-- /.modal-content -->

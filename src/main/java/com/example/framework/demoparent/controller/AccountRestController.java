@@ -18,11 +18,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -40,12 +42,51 @@ public class AccountRestController {
     @Autowired
     private AccountService accountService;
 
+    @ModelAttribute
+    protected void before() {
+        log.debug("====> before()");
+    }
+
     @PreAuthorize("hasAnyAuthority('ROLE_USER','ROLE_ADMIN','admin')")
-    @RequestMapping(value = "/{id}")
-    public BaseRestResult<TAccount> getAccountById(@PathVariable("id") Long id) {
+    @RequestMapping(value = "/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+    public BaseRestResult<TAccount> getAccountById(HttpServletRequest request, @PathVariable("id") Long id) {
+
+        Enumeration<String> attributeNames = request.getAttributeNames();
+        while (attributeNames.hasMoreElements()) {
+            log.debug("====> attributeName: {}", attributeNames.nextElement());
+        }
+
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        log.debug("====> ParameterName: {}", csrfToken.getParameterName());
+        log.debug("====> HeaderName: {}", csrfToken.getHeaderName());
+        log.debug("====> Token: {}", csrfToken.getToken());
+
         TAccount vo = accountService.selectByPrimaryKey(id);
         BaseRestResult<TAccount> restResult = new DefaultRestResultImpl<>();
         restResult.setResult(vo);
         return restResult;
     }
+
+    @RequestMapping(value = "/updateSubmit", method = {RequestMethod.GET, RequestMethod.POST})
+    public BaseRestResult<TAccount> getAccountById(@ModelAttribute("user") TAccount user, BindingResult bindingResult) {
+        log.debug("====> user: {}", user);
+        accountService.update(user);
+        log.debug("====> saved user: {}", user);
+        BaseRestResult<TAccount> restResult = new DefaultRestResultImpl<>();
+        restResult.setResult(user);
+        return restResult;
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public ModelAndView list() {
+        ModelAndView mv = new ModelAndView("account/list");
+        return mv;
+    }
+
+    @ModelAttribute
+    protected void after() {
+        log.debug("====> after()");
+    }
+
+
 }

@@ -10,9 +10,11 @@
  */
 package com.example.framework.demoparent;
 
+import com.example.framework.demoparent.interceptor.RestCsrfHandlerInterceptor;
 import freemarker.ext.jsp.TaglibFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
@@ -43,6 +45,12 @@ public class TldConfig extends WebMvcConfigurerAdapter {
         if (taglibFactory.getObjectWrapper() == null) {
             taglibFactory.setObjectWrapper(configurer.getConfiguration().getObjectWrapper());
         }
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        super.addInterceptors(registry);
+        registry.addInterceptor(new RestCsrfHandlerInterceptor()).addPathPatterns("/rest/**");
     }
 
 }

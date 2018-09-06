@@ -25,7 +25,7 @@ public class DemoPomApplication {
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
         //日期格式化
-//        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
 
         List<MediaType> mediaTypeList = new ArrayList<>();
         mediaTypeList.add(MediaType.APPLICATION_JSON_UTF8);

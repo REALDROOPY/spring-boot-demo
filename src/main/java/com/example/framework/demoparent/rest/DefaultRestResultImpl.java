@@ -23,6 +23,9 @@ public class DefaultRestResultImpl<T> implements BaseRestResult<T> {
 
     private String code = "0";
     private String msg;
+    private String csrfParameterName;
+    private String csrfToken;
+    private String csrfHeaderName;
 
     private T result;
 
@@ -31,8 +34,10 @@ public class DefaultRestResultImpl<T> implements BaseRestResult<T> {
         final StringBuilder sb = new StringBuilder("DefaultRestResultImpl{");
         sb.append("code='").append(code).append('\'');
         sb.append(", msg='").append(msg).append('\'');
-        sb.append(", success='").append(this.isSuccess()).append('\'');
-        sb.append(", result=").append(String.valueOf(result));
+        sb.append(", csrfParameterName='").append(csrfParameterName).append('\'');
+        sb.append(", csrfToken='").append(csrfToken).append('\'');
+        sb.append(", csrfHeaderName='").append(csrfHeaderName).append('\'');
+        sb.append(", result=").append(result);
         sb.append('}');
         return sb.toString();
     }
@@ -70,5 +75,35 @@ public class DefaultRestResultImpl<T> implements BaseRestResult<T> {
     @Override
     public void setResult(T result) {
         this.result = result;
+    }
+
+    @Override
+    public String getCsrfParameterName() {
+        return csrfParameterName;
+    }
+
+    @Override
+    public void setCsrfParameterName(String csrfParameterName) {
+        this.csrfParameterName = csrfParameterName;
+    }
+
+    @Override
+    public String getCsrfToken() {
+        return csrfToken;
+    }
+
+    @Override
+    public void setCsrfToken(String csrfToken) {
+        this.csrfToken = csrfToken;
+    }
+
+    @Override
+    public String getCsrfHeaderName() {
+        return csrfHeaderName;
+    }
+
+    @Override
+    public void setCsrfHeaderName(String csrfHeaderName) {
+        this.csrfHeaderName = csrfHeaderName;
     }
 }

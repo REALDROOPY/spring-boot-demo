@@ -30,6 +30,7 @@
                 </div>
                 <div class="panel-body">
                     <form id="signupForm" method="post" class="form-horizontal">
+                        <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="userName">User Name</label>
                             <div class="col-sm-5">

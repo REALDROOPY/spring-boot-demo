@@ -32,4 +32,17 @@ public interface BaseRestResult<T> {
     T getResult();
 
     void setResult(T result);
+
+    String getCsrfParameterName();
+
+    void setCsrfParameterName(String csrfParameterName);
+
+    String getCsrfToken();
+
+    void setCsrfToken(String csrfToken);
+
+    String getCsrfHeaderName();
+
+    void setCsrfHeaderName(String csrfHeaderName);
+
 }
