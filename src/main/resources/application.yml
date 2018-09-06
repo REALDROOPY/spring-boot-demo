@@ -65,7 +65,7 @@ mybatis:
   configuration:
     cache-enabled: false
   mapper-locations: classpath:mapper/*.xml
-debug: true
+debug: false
 server:
   error:
     include-stacktrace: never
