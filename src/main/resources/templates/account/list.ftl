@@ -157,7 +157,7 @@
                                 </div>
                                 <div class="panel-body">
                                     <form id="editForm" method="post" class="form-horizontal">
-                                        <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
+                                        <input name="${(_csrf.parameterName)!}" type="hidden" value="${(_csrf.token)!}">
 
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label" for="id">ID</label>
