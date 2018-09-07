@@ -52,7 +52,7 @@ spring:
   mvc:
     locale: zh_CN
     favicon:
-      enabled: true
+      enabled: false
 security:
   basic:
     enabled: false
