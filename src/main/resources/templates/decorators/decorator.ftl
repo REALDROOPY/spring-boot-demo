@@ -2,6 +2,7 @@
 <html>
 <head>
     <#include "/common/inc/head1.ftl">
+
     <title>
         SiteMesh3: <sitemesh:write property="title"/>
     </title>

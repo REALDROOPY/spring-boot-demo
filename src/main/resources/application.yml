@@ -51,6 +51,8 @@ spring:
     encoding: UTF-8
   mvc:
     locale: zh_CN
+    favicon:
+      enabled: true
 security:
   basic:
     enabled: false
