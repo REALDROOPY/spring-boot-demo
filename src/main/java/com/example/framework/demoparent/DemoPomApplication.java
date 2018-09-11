@@ -8,11 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
+import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
+@EnableJdbcHttpSession
 public class DemoPomApplication {
 
     public static void main(String[] args) {

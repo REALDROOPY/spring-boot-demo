@@ -53,6 +53,12 @@ spring:
     locale: zh_CN
     favicon:
       enabled: false
+  session:
+    store-type: jdbc
+    jdbc:
+      initializer:
+        enabled: false
+      schema:
 security:
   basic:
     enabled: false
