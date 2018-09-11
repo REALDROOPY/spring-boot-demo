@@ -30,9 +30,10 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Simple Form</h3>
+                    <h3 class="panel-title">Simple Form ${(vo.userName)!}</h3>
                 </div>
                 <div class="panel-body">
+                    <#--<#escape x as x?html>-->
                     <form id="signupForm" method="post" class="form-horizontal">
 
                         <div class="form-group">
@@ -44,7 +45,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="userName">User Name</label>
+                            <label class="col-sm-4 control-label" for="userName">User Name(${(vo.userName)!})</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="userName" name="userName"
                                        placeholder="user name" value="${(vo.userName)!}"/>
@@ -93,6 +94,7 @@
                             </div>
                         </div>
                     </form>
+                    <#--</#escape>-->
                 </div>
             </div>
 

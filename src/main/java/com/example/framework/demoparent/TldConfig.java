@@ -11,7 +11,10 @@
 package com.example.framework.demoparent;
 
 import com.example.framework.demoparent.interceptor.RestCsrfHandlerInterceptor;
+import freemarker.core.HTMLOutputFormat;
 import freemarker.ext.jsp.TaglibFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -33,6 +36,8 @@ import java.util.List;
 @Configuration
 public class TldConfig extends WebMvcConfigurerAdapter {
 
+    private static final Logger log = LoggerFactory.getLogger(TldConfig.class);
+
     @Autowired
     private FreeMarkerConfigurer configurer;
 
@@ -45,6 +50,11 @@ public class TldConfig extends WebMvcConfigurerAdapter {
         if (taglibFactory.getObjectWrapper() == null) {
             taglibFactory.setObjectWrapper(configurer.getConfiguration().getObjectWrapper());
         }
+
+        configurer.getConfiguration().setOutputFormat(HTMLOutputFormat.INSTANCE);
+
+        //configurer.setPreTemplateLoaders(new HtmlTemplateLoader(configurer.getConfiguration().getTemplateLoader()));
+        //configurer.setPostTemplateLoaders(new HtmlTemplateLoader(configurer.getConfiguration().getTemplateLoader()));
     }
 
     @Override

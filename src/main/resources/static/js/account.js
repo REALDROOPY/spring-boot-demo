@@ -355,7 +355,9 @@ window.actionEvents = {
         });
     },
     'click .myremove': function (e, value, row, index) {
-        alert(JSON.stringify(row));
+        //alert(JSON.stringify(row));
+        $("#searchForm").attr('action', '/account/' + row.id);
+        $("#searchForm").submit();
     }
 };
 
