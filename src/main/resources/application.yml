@@ -79,3 +79,5 @@ server:
     include-stacktrace: never
     whitelabel:
       enabled: false
+logging:
+  path: D:/logs/springboot

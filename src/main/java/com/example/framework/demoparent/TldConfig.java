@@ -33,35 +33,35 @@ import java.util.List;
  * @since [产品/模块版本] （可选）
  */
 
-@Configuration
+//@Configuration
 public class TldConfig extends WebMvcConfigurerAdapter {
 
     private static final Logger log = LoggerFactory.getLogger(TldConfig.class);
 
-    @Autowired
-    private FreeMarkerConfigurer configurer;
-
-    @PostConstruct
-    public void freeMarkerConfigurer() {
-        List<String> tlds = new ArrayList<>(5);
-        tlds.add("/static/tags/security.tld");
-        TaglibFactory taglibFactory = configurer.getTaglibFactory();
-        taglibFactory.setClasspathTlds(tlds);
-        if (taglibFactory.getObjectWrapper() == null) {
-            taglibFactory.setObjectWrapper(configurer.getConfiguration().getObjectWrapper());
-        }
-
-        configurer.getConfiguration().setOutputFormat(HTMLOutputFormat.INSTANCE);
-
-        //configurer.setPreTemplateLoaders(new HtmlTemplateLoader(configurer.getConfiguration().getTemplateLoader()));
-        //configurer.setPostTemplateLoaders(new HtmlTemplateLoader(configurer.getConfiguration().getTemplateLoader()));
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        super.addInterceptors(registry);
-        registry.addInterceptor(new RestCsrfHandlerInterceptor()).addPathPatterns("/rest/**");
-    }
+//    @Autowired
+//    private FreeMarkerConfigurer configurer;
+//
+//    @PostConstruct
+//    public void freeMarkerConfigurer() {
+//        List<String> tlds = new ArrayList<>(5);
+//        tlds.add("/static/tags/security.tld");
+//        TaglibFactory taglibFactory = configurer.getTaglibFactory();
+//        taglibFactory.setClasspathTlds(tlds);
+//        if (taglibFactory.getObjectWrapper() == null) {
+//            taglibFactory.setObjectWrapper(configurer.getConfiguration().getObjectWrapper());
+//        }
+//        //anti xss
+//        configurer.getConfiguration().setOutputFormat(HTMLOutputFormat.INSTANCE);
+//
+//        //configurer.setPreTemplateLoaders(new HtmlTemplateLoader(configurer.getConfiguration().getTemplateLoader()));
+//        //configurer.setPostTemplateLoaders(new HtmlTemplateLoader(configurer.getConfiguration().getTemplateLoader()));
+//    }
+//
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        super.addInterceptors(registry);
+//        registry.addInterceptor(new RestCsrfHandlerInterceptor()).addPathPatterns("/rest/**");
+//    }
 
 }
 

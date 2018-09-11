@@ -82,8 +82,8 @@ public class AccountController {
         String msg = requestContext.getMessage("test.str");
         log.debug("====> msg: {}", msg);
 
-//        String aaa = null;
-//        boolean error = aaa.equals("");
+        String aaa = null;
+        boolean error = aaa.equals("");
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

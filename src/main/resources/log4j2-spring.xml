@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration name="MyXMLConfig">
+    <Properties>
+        <!--<Property name="filename">target/test.log</Property>-->
+        <Property name="filepath">${sys:LOG_PATH}</Property>
+        <Property name="maxFiles">3</Property>
+        <Property name="charset">UTF-8</Property>
+        <Property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} %L %M - %msg%xEx%n</Property>
+    </Properties>
+    <!--<Filter type="ThresholdFilter" level="debug"/>-->
+
+    <Appenders>
+        <Console name="console">
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${PATTERN}"/>
+            <!--<Layout type="PatternLayout" pattern="%m MDC%X%n"/>-->
+            <!--<Filters>-->
+            <!--<Filter type="MarkerFilter" marker="FLOW" onMatch="DENY" onMismatch="NEUTRAL"/>-->
+            <!--<Filter type="MarkerFilter" marker="EXCEPTION" onMatch="DENY" onMismatch="ACCEPT"/>-->
+            <!--</Filters>-->
+        </Console>
+        <!--<Appender type="Console" name="FLOW">
+            <Layout type="PatternLayout" pattern="%C{1}.%M %m %ex%n"/>&lt;!&ndash; class and line number &ndash;&gt;
+            <Filters>
+                <Filter type="MarkerFilter" marker="FLOW" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <Filter type="MarkerFilter" marker="EXCEPTION" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </Appender>-->
+        <!--<Appender type="File" name="File" fileName="${filename}">-->
+        <!--<PatternLayout pattern="${PATTERN}" />-->
+        <!--<Layout type="PatternLayout">-->
+        <!--<Pattern>%d %p %C{1.} [%t] %m%n</Pattern>-->
+        <!--</Layout>-->
+        <!--</Appender>-->
+
+        <RollingFile name="file" fileName="${filepath}/app.log"
+                     filePattern="$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout charset="${charset}" pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+                <!--<SizeBasedTriggeringPolicy size="250 MB"/>-->
+            </Policies>
+            <DefaultRolloverStrategy max="${maxFiles}"/>
+        </RollingFile>
+
+        <RollingFile name="error" fileName="${filepath}/error.log"
+                     filePattern="$${date:yyyy-MM}/error-%d{MM-dd-yyyy}-%i.log.gz">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout charset="${charset}" pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+                <!--<SizeBasedTriggeringPolicy size="250 MB"/>-->
+            </Policies>
+            <DefaultRolloverStrategy max="${maxFiles}"/>
+        </RollingFile>
+
+        <RollingFile name="sql" fileName="${filepath}/sql.log"
+                     filePattern="$${date:yyyy-MM}/sql-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout charset="${charset}" pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${maxFiles}"/>
+        </RollingFile>
+
+        <RollingFile name="slow-sql" fileName="${filepath}/slow-sql.log"
+                     filePattern="$${date:yyyy-MM}/slow-sql-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout charset="${charset}" pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${maxFiles}"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!--<Logger name="org.apache.logging.log4j.test1" level="debug" additivity="false">-->
+        <!--<Filter type="ThreadContextMapFilter">-->
+        <!--<KeyValuePair key="test" value="123"/>-->
+        <!--</Filter>-->
+        <!--<AppenderRef ref="STDOUT"/>-->
+        <!--</Logger>-->
+
+        <!--<Logger name="org.apache.logging.log4j.test2" level="debug" additivity="false">-->
+        <!--<AppenderRef ref="File"/>-->
+        <!--</Logger>-->
+
+        <logger name="org.springframework.transaction" level="info" additivity="false">
+            <appender-ref ref="console"/>
+            <appender-ref ref="file"/>
+        </logger>
+
+        <logger name="org.mybatis" level="debug" additivity="false">
+            <appender-ref ref="console"/>
+            <appender-ref ref="file"/>
+        </logger>
+
+        <logger name="com.example.framework.demoparent.mapper" level="debug" additivity="false">
+            <appender-ref ref="console"/>
+            <appender-ref ref="file"/>
+        </logger>
+
+        <logger name="com.example.framework.demoparent" level="debug" additivity="false">
+            <appender-ref ref="console"/>
+            <appender-ref ref="file"/>
+        </logger>
+
+        <logger name="org.sitemesh" level="trace" additivity="false">
+            <appender-ref ref="console"/>
+            <appender-ref ref="file"/>
+        </logger>
+
+        <logger name="druid.sql.Statement" level="debug" additivity="false">
+            <appender-ref ref="console"/>
+            <appender-ref ref="sql"/>
+        </logger>
+
+        <logger name="com.alibaba.druid.filter.stat.StatFilter" level="debug" additivity="false">
+            <appender-ref ref="console"/>
+            <appender-ref ref="slow-sql"/>
+        </logger>
+
+        <Root level="info">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="file"/>
+            <AppenderRef ref="error"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
